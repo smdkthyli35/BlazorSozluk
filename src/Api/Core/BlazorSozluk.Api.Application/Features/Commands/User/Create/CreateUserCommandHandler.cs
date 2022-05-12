@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace BlazorSozluk.Api.Application.Features.Commands.User.Create
 {
-    public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, bool>
+    public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Guid>
     {
         private readonly IMapper mapper;
         private readonly IUserRepository userRepository;
@@ -26,7 +26,7 @@ namespace BlazorSozluk.Api.Application.Features.Commands.User.Create
             this.userRepository = userRepository;
         }
 
-        public async Task<bool> Handle(CreateUserCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
             var existsUser = await userRepository.GetSingleAsync(i => i.EmailAddress == request.EmailAddress);
             if (existsUser is not null)
@@ -50,6 +50,8 @@ namespace BlazorSozluk.Api.Application.Features.Commands.User.Create
                                                    queueName: SozlukConstants.UserEmailExchangedQueueName,
                                                    obj: @event);
             }
+
+            return dbUser.Id;
         }
     }
 }
