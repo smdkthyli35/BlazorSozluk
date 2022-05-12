@@ -1,5 +1,8 @@
 ﻿using AutoMapper;
 using BlazorSozluk.Api.Application.Interfaces.Repositories;
+using BlazorSozluk.Common;
+using BlazorSozluk.Common.Events.User;
+using BlazorSozluk.Common.Infrastructure;
 using BlazorSozluk.Common.Infrastructure.Exceptions;
 using BlazorSozluk.Common.Models.RequestModels;
 using MediatR;
@@ -34,6 +37,19 @@ namespace BlazorSozluk.Api.Application.Features.Commands.User.Create
             var rows = await userRepository.AddAsync(dbUser);
 
             // Email Changes/Created
+
+            if (rows > 0)
+            {
+                var @event = new UserEmailChangedEvent()
+                {
+                    OldEmailAddress = null,
+                    NewEmailAddress = request.EmailAddress
+                };
+                QueueFactory.SendMessageToExchange(exchangeName: SozlukConstants.UserExchangeName,
+                                                   exchangeType: SozlukConstants.DefaultExchangeType,
+                                                   queueName: SozlukConstants.UserEmailExchangedQueueName,
+                                                   obj: @event);
+            }
         }
     }
 }
