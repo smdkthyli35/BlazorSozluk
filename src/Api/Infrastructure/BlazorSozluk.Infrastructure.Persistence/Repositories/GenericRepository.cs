@@ -1,5 +1,6 @@
 ﻿using BlazorSozluk.Api.Application.Interfaces.Repositories;
 using BlazorSozluk.Api.Domain.Models;
+using BlazorSozluk.Infrastructure.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,13 +11,14 @@ using System.Threading.Tasks;
 
 namespace BlazorSozluk.Infrastructure.Persistence.Repositories
 {
-    public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : BaseEntity
+    public class GenericRepository<TEntity, TContext> : IGenericRepository<TEntity>
+        where TEntity : BaseEntity
+        where TContext : DbContext
     {
-        private readonly DbContext dbContext;
-
+        private readonly TContext dbContext;
         protected DbSet<TEntity> entity => dbContext.Set<TEntity>();
 
-        public GenericRepository(DbContext dbContext)
+        public GenericRepository(TContext dbContext)
         {
             this.dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }

@@ -1,5 +1,6 @@
 ﻿using BlazorSozluk.Api.Application.Interfaces.Repositories;
 using BlazorSozluk.Api.Domain.Models;
+using BlazorSozluk.Infrastructure.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace BlazorSozluk.Infrastructure.Persistence.Repositories
 {
-    public class EmailConfirmationRepository : GenericRepository<EmailConfirmation>, IEmailConfirmationRepository
+    public class EmailConfirmationRepository : GenericRepository<EmailConfirmation, BlazorSozlukContext>, IEmailConfirmationRepository
     {
-        public EmailConfirmationRepository(DbContext dbContext) : base(dbContext)
+        public EmailConfirmationRepository(BlazorSozlukContext dbContext) : base(dbContext)
         {
         }
     }
