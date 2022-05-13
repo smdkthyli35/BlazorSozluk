@@ -25,7 +25,6 @@
     <Folder Include="Features\Commands\EntryComment\Create\" />
     <Folder Include="Features\Commands\EntryComment\DeleteFav\" />
     <Folder Include="Features\Commands\EntryComment\DeleteVote\" />
-    <Folder Include="Features\Commands\Entry\CreateVote\" />
     <Folder Include="Features\Commands\Entry\DeleteFav\" />
     <Folder Include="Features\Commands\Entry\DeleteVote\" />
     <Folder Include="Features\Commands\User\ConfirmEmail\" />

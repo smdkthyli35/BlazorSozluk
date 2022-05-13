@@ -16,10 +16,12 @@ namespace BlazorSozluk.Common
         public const string UserEmailExchangedQueueName = "UserEmailChangedQueue";
 
 
-        public const string FavExchangeName = "FavExchangeName";
+        public const string FavExchangeName = "FavExchange";
         public const string CreateEntryCommentFavQueueName = "CreateEntryCommentFavQueue";
 
         public const string CreateEntryFavQueueName = "CreateEntryFavQueue";
 
+        public const string VoteExchangeName = "VoteExchange";
+        public const string CreateEntryVoteQueueName = "CreateEntryVoteQueue";
     }
 }
