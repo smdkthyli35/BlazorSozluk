@@ -18,6 +18,7 @@ namespace BlazorSozluk.Common
 
         public const string FavExchangeName = "FavExchange";
         public const string CreateEntryCommentFavQueueName = "CreateEntryCommentFavQueue";
+        public const string CreateEntryCommentVoteQueueName = "CreateEntryCommentVoteQueue";
 
         public const string CreateEntryFavQueueName = "CreateEntryFavQueue";
 

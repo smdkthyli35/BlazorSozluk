@@ -21,7 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Commands\EntryComment\CreateVote\" />
     <Folder Include="Features\Commands\EntryComment\DeleteFav\" />
     <Folder Include="Features\Commands\EntryComment\DeleteVote\" />
     <Folder Include="Features\Commands\User\ConfirmEmail\" />
