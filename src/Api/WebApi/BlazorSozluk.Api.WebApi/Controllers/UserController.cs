@@ -12,7 +12,7 @@ namespace BlazorSozluk.Api.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class UserController : BaseController
     {
         private readonly IMediator mediator;
 
@@ -56,6 +56,9 @@ namespace BlazorSozluk.Api.WebApi.Controllers
         [Route("ChangePassword")]
         public async Task<IActionResult> ChangePassword([FromBody] ChangeUserPasswordCommand command)
         {
+            if (!command.UserId.HasValue)
+                command.UserId = UserId;
+
             var guid = await mediator.Send(command);
             return Ok(guid);
         }
