@@ -26,6 +26,7 @@ namespace BlazorSozluk.Common
         public const string CreateEntryVoteQueueName = "CreateEntryVoteQueue";
 
         public const string DeleteEntryFavQueueName = "DeleteEntryFavQueue";
+        public const string DeleteEntryCommentFavQueueName = "DeleteEntryCommentFavQueue";
 
         public const string DeleteEntryVoteQueueName = "DeleteEntryVoteQueue";
     }
