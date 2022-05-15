@@ -26,6 +26,9 @@ namespace BlazorSozluk.Api.Application.Mapping
             CreateMap<Entry, CreateEntryCommand>()
                 .ReverseMap();
 
+            CreateMap<Entry, GetEntriesViewModel>()
+                .ForMember(x => x.CommentCount, y => y.MapFrom(z => z.EntryComments.Count));
+
             CreateMap<EntryComment, CreateEntryCommentCommand>()
                 .ReverseMap();
         }
