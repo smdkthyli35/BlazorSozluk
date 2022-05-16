@@ -12,9 +12,9 @@ namespace BlazorSozluk.Api.Application.Features.Queries.GetMainPageEntries
     {
         public GetMainPageEntriesQuery(Guid? userId, int page, int pageSize) : base(page, pageSize)
         {
-            UserId = (Guid)userId;
+            UserId = userId;
         }
 
-        public Guid UserId { get; set; }
+        public Guid? UserId { get; set; }
     }
 }
