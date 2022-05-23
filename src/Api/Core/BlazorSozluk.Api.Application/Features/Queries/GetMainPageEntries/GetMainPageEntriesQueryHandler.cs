@@ -34,6 +34,7 @@ namespace BlazorSozluk.Api.Application.Features.Queries.GetMainPageEntries
                 Subject = i.Subject,
                 Content = i.Content,
                 IsFavorited = request.UserId.HasValue && i.EntryFavorites.Any(j => j.CreatedById == request.UserId),
+                FavoritedCount = i.EntryFavorites.Count,
                 CreatedDate = i.CreateDate,
                 CreatedByUserName = i.CreatedBy.UserName,
                 VoteType =
@@ -44,7 +45,7 @@ namespace BlazorSozluk.Api.Application.Features.Queries.GetMainPageEntries
 
             var entries = await list.GetPaged(request.Page, request.PageSize);
 
-            return new PagedViewModel<GetEntryDetailViewModel>(entries.Results, entries.PageInfo);
+            return entries;
         }
     }
 }
