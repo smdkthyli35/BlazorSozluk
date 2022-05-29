@@ -1,4 +1,5 @@
 using BlazorSozluk.Api.Application.Extensions;
+using BlazorSozluk.Api.WebApi.Infrastructure.Extensions;
 using BlazorSozluk.Infrastructure.Persistence.Extensions;
 using FluentValidation.AspNetCore;
 using MediatR;
@@ -41,6 +42,8 @@ namespace BlazorSozluk.Api.WebApi
                 })
                 .AddFluentValidation();
 
+            services.ConfigureAuth(Configuration);
+
 
             services.AddSwaggerGen(c =>
             {
@@ -61,6 +64,8 @@ namespace BlazorSozluk.Api.WebApi
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
