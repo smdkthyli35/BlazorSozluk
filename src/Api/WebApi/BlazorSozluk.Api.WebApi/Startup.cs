@@ -63,6 +63,8 @@ namespace BlazorSozluk.Api.WebApi
 
             app.UseHttpsRedirection();
 
+            app.ConfigureExceptionHandling(env.IsDevelopment());
+
             app.UseRouting();
 
             app.UseAuthentication();
