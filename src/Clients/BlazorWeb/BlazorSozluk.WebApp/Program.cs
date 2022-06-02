@@ -1,3 +1,5 @@
+using BlazorSozluk.WebApp.Infrastructure.Services;
+using BlazorSozluk.WebApp.Infrastructure.Services.Interfaces;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,6 +29,9 @@ namespace BlazorSozluk.WebApp
                 var clientFactory = sp.GetRequiredService<IHttpClientFactory>();
                 return clientFactory.CreateClient("WebApiClient");
             });
+
+            builder.Services.AddTransient<IVoteService, VoteService>();
+            builder.Services.AddTransient<IEntryService, EntryService>();
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
