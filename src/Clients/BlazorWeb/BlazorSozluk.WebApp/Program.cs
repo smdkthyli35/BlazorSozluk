@@ -32,6 +32,7 @@ namespace BlazorSozluk.WebApp
 
             builder.Services.AddTransient<IVoteService, VoteService>();
             builder.Services.AddTransient<IEntryService, EntryService>();
+            builder.Services.AddTransient<IFavService, FavService>();
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
