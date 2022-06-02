@@ -1,3 +1,4 @@
+using Blazored.LocalStorage;
 using BlazorSozluk.WebApp.Infrastructure.Services;
 using BlazorSozluk.WebApp.Infrastructure.Services.Interfaces;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -33,8 +34,11 @@ namespace BlazorSozluk.WebApp
             builder.Services.AddTransient<IVoteService, VoteService>();
             builder.Services.AddTransient<IEntryService, EntryService>();
             builder.Services.AddTransient<IFavService, FavService>();
+            builder.Services.AddTransient<IUserService, UserService>();
+            builder.Services.AddTransient<IIdentityService, IdentityService>();
 
-            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+
+            builder.Services.AddBlazoredLocalStorage();
 
             await builder.Build().RunAsync();
         }
