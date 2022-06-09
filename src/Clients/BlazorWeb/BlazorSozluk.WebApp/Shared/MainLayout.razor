@@ -2,7 +2,13 @@
 
 <div class="page">
     <div class="sidebar">
-        <NavMenu />
+        <h5 class="text-white text-center sidebar-heading">@EntriesSubject</h5>
+        <a class="mode-data" @onclick="@RefreshEntries">Yenile</a>
+
+        <ul class="list-group">
+            <EntriesComponent @ref="@entriesComponent" />
+        </ul>
+
     </div>
 
     <div class="main">
@@ -15,3 +21,14 @@
         </div>
     </div>
 </div>
+
+@code {
+    public string EntriesSubject { get; set; } = "bugün";
+
+    private EntriesComponent entriesComponent;
+
+    private async Task RefreshEntries()
+    {
+        await entriesComponent.RefreshList();
+    }
+}

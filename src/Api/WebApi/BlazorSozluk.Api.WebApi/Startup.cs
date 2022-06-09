@@ -44,6 +44,13 @@ namespace BlazorSozluk.Api.WebApi
 
             services.ConfigureAuth(Configuration);
 
+            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
+
 
             services.AddSwaggerGen(c =>
             {
@@ -70,6 +77,8 @@ namespace BlazorSozluk.Api.WebApi
             app.UseAuthentication();
 
             app.UseAuthorization();
+
+            app.UseCors("MyPolicy");
 
             app.UseEndpoints(endpoints =>
             {
