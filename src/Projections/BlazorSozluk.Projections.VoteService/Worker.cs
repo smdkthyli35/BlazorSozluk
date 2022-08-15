@@ -1,5 +1,6 @@
 using BlazorSozluk.Common;
 using BlazorSozluk.Common.Events.Entry;
+using BlazorSozluk.Common.Events.EntryComment;
 using BlazorSozluk.Common.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -38,6 +39,36 @@ namespace BlazorSozluk.Projections.VoteService
                     _logger.LogInformation($"Create Entry Received EntryId: {0}, VoteType: {1}", vote.EntryId, vote.VoteType);
                 })
                 .StartConsuming(SozlukConstants.CreateEntryVoteQueueName);
+
+            QueueFactory.CreateBasicConsumer()
+                .EnsureExchange(SozlukConstants.VoteExchangeName)
+                .EnsureQueue(SozlukConstants.DeleteEntryVoteQueueName, SozlukConstants.VoteExchangeName)
+                .Receive<DeleteEntryVoteEvent>(vote =>
+                {
+                    voteService.DeleteEntryVote(vote).GetAwaiter().GetResult();
+                    _logger.LogInformation($"Delete Entry Received EntryId: {0}", vote.EntryId);
+                })
+                .StartConsuming(SozlukConstants.DeleteEntryVoteQueueName);
+
+            QueueFactory.CreateBasicConsumer()
+                .EnsureExchange(SozlukConstants.VoteExchangeName)
+                .EnsureQueue(SozlukConstants.CreateEntryCommentVoteQueueName, SozlukConstants.VoteExchangeName)
+                .Receive<CreateEntryCommentVoteEvent>(vote =>
+                {
+                    voteService.CreateEntryCommentVote(vote);
+                    _logger.LogInformation($"Create Entry Comment Received EntryCommentId. {0}, VoteType: {1}", vote.EntryCommentId, vote.VoteType);
+                })
+                .StartConsuming(SozlukConstants.CreateEntryCommentVoteQueueName);
+
+            QueueFactory.CreateBasicConsumer()
+                .EnsureExchange(SozlukConstants.VoteExchangeName)
+                .EnsureQueue(SozlukConstants.DeleteEntryCommentVoteQueueName, SozlukConstants.VoteExchangeName)
+                .Receive<DeleteEntryCommentVoteEvent>(vote =>
+                {
+                    voteService.DeleteEntryCommentVote(vote);
+                    _logger.LogInformation($"Delete Entry Comment Received EntryCommentId: {0}", vote.EntryCommentId);
+                })
+                .StartConsuming(SozlukConstants.DeleteEntryCommentVoteQueueName);
         }
     }
 }
