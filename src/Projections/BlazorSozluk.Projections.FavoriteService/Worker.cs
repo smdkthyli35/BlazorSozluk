@@ -4,9 +4,6 @@ using BlazorSozluk.Common.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -37,6 +34,11 @@ namespace BlazorSozluk.Projections.FavoriteService
                     _logger.LogInformation($"Reveived EntryId {fav.EntryId}");
                 })
                 .StartConsuming(SozlukConstants.CreateEntryCommentFavQueueName);
+
+            //QueueFactory.CreateBasicConsumer()
+            //    .EnsureExchange(SozlukConstants.FavExchangeName)
+            //    .EnsureQueue(SozlukConstants.DeleteEntryFavQueueName, SozlukConstants.FavExchangeName)
+            //    .Receive<>
         }
     }
 }
