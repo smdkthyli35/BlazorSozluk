@@ -25,8 +25,8 @@ namespace BlazorSozluk.Projections.FavoriteService
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            var conStr = configuration.GetConnectionString("SqlServer");
-            var favService = new Services.FavoriteService(conStr);
+            var connStr = configuration.GetConnectionString("SqlServer");
+            var favService = new Services.FavoriteService(connStr);
 
             QueueFactory.CreateBasicConsumer()
                 .EnsureExchange(SozlukConstants.FavExchangeName)
