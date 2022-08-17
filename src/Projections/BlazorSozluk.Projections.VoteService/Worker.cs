@@ -45,7 +45,7 @@ namespace BlazorSozluk.Projections.VoteService
                 .EnsureQueue(SozlukConstants.DeleteEntryVoteQueueName, SozlukConstants.VoteExchangeName)
                 .Receive<DeleteEntryVoteEvent>(vote =>
                 {
-                    voteService.DeleteEntryVote(vote).GetAwaiter().GetResult();
+                    voteService.DeleteEntryVote(vote.EntryId, vote.CreatedBy).GetAwaiter().GetResult();
                     _logger.LogInformation($"Delete Entry Received EntryId: {0}", vote.EntryId);
                 })
                 .StartConsuming(SozlukConstants.DeleteEntryVoteQueueName);
@@ -55,7 +55,7 @@ namespace BlazorSozluk.Projections.VoteService
                 .EnsureQueue(SozlukConstants.CreateEntryCommentVoteQueueName, SozlukConstants.VoteExchangeName)
                 .Receive<CreateEntryCommentVoteEvent>(vote =>
                 {
-                    voteService.CreateEntryCommentVote(vote);
+                    voteService.CreateEntryCommentVote(vote).GetAwaiter().GetResult();
                     _logger.LogInformation($"Create Entry Comment Received EntryCommentId. {0}, VoteType: {1}", vote.EntryCommentId, vote.VoteType);
                 })
                 .StartConsuming(SozlukConstants.CreateEntryCommentVoteQueueName);
@@ -65,7 +65,7 @@ namespace BlazorSozluk.Projections.VoteService
                 .EnsureQueue(SozlukConstants.DeleteEntryCommentVoteQueueName, SozlukConstants.VoteExchangeName)
                 .Receive<DeleteEntryCommentVoteEvent>(vote =>
                 {
-                    voteService.DeleteEntryCommentVote(vote);
+                    voteService.DeleteEntryCommentVote(vote.EntryCommentId, vote.CreatedBy).GetAwaiter().GetResult();
                     _logger.LogInformation($"Delete Entry Comment Received EntryCommentId: {0}", vote.EntryCommentId);
                 })
                 .StartConsuming(SozlukConstants.DeleteEntryCommentVoteQueueName);

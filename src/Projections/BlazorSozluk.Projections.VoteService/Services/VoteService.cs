@@ -1,4 +1,5 @@
 ﻿using BlazorSozluk.Common.Events.Entry;
+using BlazorSozluk.Common.Events.EntryComment;
 using Dapper;
 using Microsoft.Data.SqlClient;
 using System;
@@ -43,6 +44,32 @@ namespace BlazorSozluk.Projections.VoteService.Services
                 new
                 {
                     EntryId = entryId,
+                    UserId = userId
+                });
+        }
+
+        public async Task CreateEntryCommentVote(CreateEntryCommentVoteEvent vote)
+        {
+            using var connection = new SqlConnection(connectionString);
+
+            await connection.ExecuteAsync("INSERT INTO ENTRYCOMMENTVOTE (Id, CreateDate, EntryCommentId, VoteType, CreatedById) VALUES (@Id, GETDATE(), @EntryCommentId, @VoteType, @CreatedById)",
+                new
+                {
+                    Id = Guid.NewGuid(),
+                    EntryCommentId = vote.EntryCommentId,
+                    VoteType = (int)vote.VoteType,
+                    CreatedById = vote.CreatedBy
+                });
+        }
+
+        public async Task DeleteEntryCommentVote(Guid entryCommentId, Guid userId)
+        {
+            using var connection = new SqlConnection(connectionString);
+
+            await connection.ExecuteAsync("DELETE FROM EntryCommentVote WHERE EntryCommentId = @EntryCommentId AND CreatedById = @UserId",
+                new
+                {
+                    EntryCommentId = entryCommentId,
                     UserId = userId
                 });
         }
