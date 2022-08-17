@@ -19,6 +19,8 @@ namespace BlazorSozluk.Projections.VoteService
                 .ConfigureServices((hostContext, services) =>
                 {
                     services.AddHostedService<Worker>();
+
+                    services.AddTransient<Services.VoteService>();
                 });
     }
 }

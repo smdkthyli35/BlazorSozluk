@@ -19,6 +19,9 @@ namespace BlazorSozluk.Projections.UserService
                 .ConfigureServices((hostContext, services) =>
                 {
                     services.AddHostedService<Worker>();
+
+                    services.AddTransient<Services.UserService>();
+                    services.AddTransient<Services.EmailService>();
                 });
     }
 }

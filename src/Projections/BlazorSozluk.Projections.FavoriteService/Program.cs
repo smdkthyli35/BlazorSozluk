@@ -19,6 +19,8 @@ namespace BlazorSozluk.Projections.FavoriteService
                 .ConfigureServices((hostContext, services) =>
                 {
                     services.AddHostedService<Worker>();
+
+                    services.AddTransient<Services.FavoriteService>();
                 });
     }
 }
